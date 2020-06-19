@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="{% block lang %}ru{% endblock %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Заголовок страницы{% endblock %}</title>
+    <link rel="stylesheet" href="./styles/app.css">
+    <script src="./libs/jquery.js"></script>
+    <script src="./libs/vpopape/vpopape-0.0.4.min.js"></script>
+    <script src="./js/app.js"></script>
+    {% block assets %}
+    {# Для доп. стилей и скриптов #}
+    {% endblock %}
+    {# Иконочный шрифт, см README.md, чтобы узнать, как их готовить. #}
+    <link rel="stylesheet" href="./libs/fontello/css/fontello.css">
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>

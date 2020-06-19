@@ -1,0 +1,74 @@
+// --- Настройка Bootstrap ---
+// Здесь можно переопределять переменные Bootstrap, и таким образом его кастомизировать.
+// Все доступные переменные можно найти тут `node_modules/bootstrap/scss/_bootstrap.scss`.
+
+
+// Размеры отступов, `m-1` `pb-2` `mx-4` ... можно добавлять/удалять без ограничений.
+$spacer: 16px;
+$spacers: (
+    0: 0,
+    1: ($spacer * .25),     // 4px
+    2: ($spacer * .5),      // 8px
+    3: ($spacer * .75),     // 12px
+    4: $spacer,             // 16px
+    5: ($spacer * 1.25),    // ...
+    6: ($spacer * 1.5),
+    7: ($spacer * 1.75),
+    8: ($spacer * 2),
+    9: ($spacer * 2.5),
+    10: ($spacer * 3)
+);
+
+
+// Ширина разделителя колонок.
+$grid-gutter-width: 20px;
+
+// Режимы, можно использовать с `col-xs` `col-lg` `mb-lb-2` `d-lg-block` `d-md-none` ...
+// можно добавлять/удалять без ограничений.
+$grid-breakpoints: (
+    xxs: 0,
+    xs: 448px,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1440px
+);
+
+
+// Ограничения по ширине для `.container`.
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1380px
+);
+
+
+// --- Подключаем необходимые фичи Bootstrap (это нужно делать после переопределения соответствующих переменных). ---
+// Эти три файла обязательны.
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "./node_modules/bootstrap/scss/mixins";
+
+// Сброс стилей (аля normalize.css).
+@import "./node_modules/bootstrap/scss/reboot";
+
+// Сетка.
+@import "./node_modules/bootstrap/scss/grid";
+
+// Utilities.
+@import "./node_modules/bootstrap/scss/utilities";
+
+// Можно подключить кнопки, формы и т.п..., стилизуя их путем переопределения необходимых переменных
+// (можно посмотреть, какие нужны в соотв. подключаемом файле). Переопределять сами стили – неверно, это приводит к
+// бесполезному увеличению CSS-файла.
+
+//@import "~bootstrap/scss/forms";  // - 1. Подключил формы;
+                                    // - 2. Залез в этот файл;
+                                    // - 3. Посмотрел, какие переменные там используются (название начинается с $);
+                                    // - 4. Залез в файл "~bootstrap/scss/variables";
+                                    // - 5. Те значения, которые не подходят, переопрделяешь в этом файле ДО ПОДКЛЮЧЕНИ БУТСТРАПОВСКИХ ФАЙЛОВ.
+
+// Некоторые бутстраповские фичи требуют jQuery и Popper.js. Если такие нужны, их надо подключить в JS-файле.

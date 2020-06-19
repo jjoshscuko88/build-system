@@ -1,0 +1,33 @@
+{
+  "name": "simple-gulp-bs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/gulp dev",
+    "prod": "./node_modules/.bin/gulp build",
+    "icoopen": "./node_modules/.bin/fontello-cli open --config ./frontend/libs/fontello/config.json",
+    "icogen": "./node_modules/.bin/fontello-cli install --config ./frontend/libs/fontello/config.json --css ./frontend/libs/fontello/css --font ./frontend/libs/fontello/font"
+  },
+  "keywords": [],
+  "author": "alex",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "browser-sync": "^2.26.7",
+    "fontello-cli": "^0.5.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-ext-replace": "^0.3.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-nunjucks": "^5.0.1",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^4.14.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.0"
+  }
+}

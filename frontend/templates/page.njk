@@ -1,0 +1,115 @@
+{% extends 'layouts/app.njk' %}
+
+{% block title %}Page{% endblock %}
+
+{% block content %}
+    <style>
+        .btn {
+            padding: 5px;
+            background: red;
+        }
+    </style>
+
+    <div class="container clearfix p-6 bg-light">
+        <h1>Page</h1>
+        <img src="./assets/hello.jpeg" alt="Привет :)" width="300" class="mr-4 float-left">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur delectus distinctio doloremque
+            eaque, eius id incidunt iusto, minus nemo nihil nisi officia pariatur possimus quisquam, similique
+            temporibus! Atque dolores eligendi esse eveniet facilis fuga id iste molestias neque officiis quas quod
+            soluta, velit. Adipisci architecto at aut ducimus eligendi et, iure iusto, molestias quis quod repudiandae
+            sapiente temporibus voluptates! Accusantium corporis debitis deleniti dolor dolores doloribus earum esse
+            itaque maxime minima nam nulla numquam, pariatur quidem quis recusandae reprehenderit saepe ut. A ad
+            delectus ducimus ea impedit ipsum libero neque, perspiciatis saepe totam? Enim est eum obcaecati
+            perspiciatis recusandae.</p>
+    </div>
+    <div id="some-content" class="container mb-7" style="color: white">
+        <button type="button" class="btn btn-primary my-1">Главный</button>
+        <button type="button" class="btn btn-secondary my-1">Вторичный</button>
+        <button type="button" class="btn btn-success my-1">Успех</button>
+        <button type="button" class="btn btn-danger my-1">Опасность</button>
+        <button type="button" class="btn btn-warning my-1">Предупреждение</button>
+        <button type="button" class="btn btn-info my-1">Инфо</button>
+        <button type="button" class="btn btn-light my-1">Светлый</button>
+        <button type="button" class="btn btn-dark my-1">Темный</button>
+    </div>
+
+    <div class="container mb-4" style="color: white">
+        <h1>Открывалки модалок</h1>
+        <ol>
+            <li>
+                Модалка уже есть в документе и имеет <code>id="popup1"</code>:<br>
+                <button class="btn btn-primary my-1" data-modal-caller="popup1">
+                    Открыть модалку #popup1
+                </button>
+            </li>
+
+            <li>
+                Модалки нет в документе. Первый клик по кнопке создаст её, потом будет вызываться уже созданная.
+                Ясен хрен, так как её нет, она будет пустая. Поэтому в модалку, можно вставить контент с другого элемента:<br>
+                <button class="btn btn-primary my-1" data-modal-caller="popup2" data-modal-clone-from="some-content">
+                    Открыть модалку #popup2
+                </button>
+            </li>
+
+            <li>
+                Можно по клику на кнопку показать сообщение, аля alert:<br>
+                <button class="btn btn-primary my-1" data-modal-alert="Эгегей! Это какое-то сообщение!">Показать сообщение</button>
+            </li>
+
+            <li>
+                Можно подтвердить выполнение какой-нить функциональности (отправки формы, добавление/удаление чего-нить...).
+                После этой фразы, внутри <samp>&lt;script&gt;</samp> создана функция (посмотри исходники).
+                <script>
+                    function someGlobalFunc(deg) {
+                        var confirmCaller = document.getElementById('confirm-caller');
+                        document.body.style.transition = 'transform .25s';
+
+                        if (document.body.style.transform) {
+                            document.body.style.transform = '';
+                            confirmCaller.dataset.modalConfirm = 'Повеселимся?'
+                        } else {
+                            document.body.style.transform = 'rotate(' + deg + 'deg)';
+                            confirmCaller.dataset.modalConfirm = 'Вернуть всё взад!'
+                        }
+                    }
+                </script>
+                Она будет вызвана если кликнуть эту кнопку и потом «Ок»:<br>
+                <button id="confirm-caller" class="btn btn-primary my-1"
+                        data-modal-confirm="Повеселимся?"
+                        data-modal-confirm-cb="someGlobalFunc"
+                        data-modal-confirm-param="355"
+                >
+                    Сделать хорошо
+                </button>
+            </li>
+        </ol>
+
+    </div>
+
+    <div class="container mb-4" style="color: white">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias aliquam aliquid animi at autem, blanditiis consequatur culpa dolore ea earum eius error ex fuga fugiat illum impedit inventore magnam molestiae nemo nisi nobis non obcaecati officiis omnis optio perferendis quis quisquam quod ratione repudiandae suscipit temporibus vel veniam veritatis vitae voluptate. Accusamus, ad aliquam, aliquid asperiores aut autem beatae blanditiis commodi consequatur cumque dicta dignissimos dolorum ducimus enim et eum eveniet ex explicabo hic ipsum iste laboriosam laborum libero maiores minus officia pariatur porro provident quae quas quia quo repudiandae rerum similique veritatis vero voluptate. Aspernatur autem ea illo laudantium officiis quidem soluta tempore? Consectetur deserunt ducimus eaque eius eligendi, fugiat hic nemo odio, pariatur quasi recusandae sequi tempora veritatis? A accusamus amet architecto at beatae, commodi consequatur cum delectus dolorem doloribus eos est eveniet fuga fugit id impedit ipsa ipsum, iure magni maiores molestiae necessitatibus nulla optio perspiciatis praesentium quia ratione reiciendis repellat repudiandae rerum sed sint sunt temporibus ullam velit voluptatem, voluptates? Ad, aliquam aperiam atque autem cupiditate fuga, id nam necessitatibus nesciunt, numquam odio omnis praesentium quam quis sapiente! Accusamus, atque beatae corporis cum earum facere laborum molestiae, neque nisi placeat quaerat ut voluptatibus! At autem consequuntur eos facere incidunt labore natus praesentium qui, voluptatum. Alias cum perferendis reprehenderit sequi. Architecto excepturi fuga illum maiores nam optio provident tempora. Ad aperiam at beatae commodi dignissimos distinctio dolorem dolorum eius expedita facilis illo impedit in iusto laborum libero, minima minus necessitatibus nisi nulla odit perferendis quasi repudiandae sint suscipit ut vel velit vitae voluptas voluptates voluptatibus! Consequatur excepturi explicabo fugit harum molestiae vero. A alias cum debitis distinctio ea esse harum iure labore laudantium libero minima mollitia, nemo porro praesentium quia reprehenderit sed tempore temporibus. Aliquid animi at beatae, blanditiis consequuntur dolor doloremque doloribus eius eos esse et eum fugit hic illo iusto, mollitia nisi odit, praesentium provident quaerat quibusdam quidem quisquam recusandae reiciendis repellat sapiente sit vero. Aliquid atque consequuntur dolore dolores et explicabo hic id impedit ipsam laborum libero molestiae, nisi obcaecati odit perferendis provident qui, ratione repudiandae, sequi soluta tempore tenetur ullam vitae. Adipisci dolorem ducimus earum harum porro sit soluta vel. Adipisci aliquam animi autem cum cumque debitis dicta eaque enim fuga harum illo impedit iste iusto laudantium nobis placeat porro quam quibusdam, quis sit tempore veniam veritatis voluptatum? Ad assumenda beatae cupiditate debitis distinctio dolores fugit hic ipsam iusto labore laudantium, maiores nesciunt nihil nostrum nulla pariatur quidem ratione recusandae repellendus repudiandae rerum totam voluptatem! Corporis, delectus dicta dolor dolores doloribus earum et porro ut voluptatum? Aliquam animi autem beatae delectus dolorem hic illo ipsum molestias nulla possimus, quis sed totam. Alias amet animi aperiam corporis dolores earum facilis hic, iste itaque laborum magni maiores maxime nemo neque nesciunt nobis quasi quisquam ratione rem repudiandae sit sunt, veritatis vitae. Accusantium alias architecto cupiditate dicta dolor doloremque, doloribus est facilis illo labore laborum magnam molestiae quas quibusdam suscipit! Blanditiis delectus ea earum eos esse iste minima odit quidem vel! Aperiam atque commodi dolor id. Aut maxime non quas velit? Asperiores at deserunt eius est ex, maxime molestiae nesciunt non officia pariatur possimus quaerat quo recusandae sed, similique tempora velit voluptate. Fuga fugiat in maiores natus perspiciatis sequi, sit. Animi architecto consequuntur cum dolorem ducimus eius eum hic in iste, iusto modi molestiae nemo nostrum odit pariatur quidem repudiandae sed soluta sunt, suscipit vel veritatis voluptas voluptate! Ad aliquid culpa deserunt doloribus ex facere illo illum ipsum magni maxime, molestiae mollitia nihil numquam, odit officiis pariatur, quam quisquam repellat tenetur velit! Assumenda atque autem deserunt dicta doloribus ipsa minus quis temporibus, voluptatem! Blanditiis ducimus laudantium sint soluta veritatis. Consequatur deserunt eum hic magni minima non possimus repellat? At commodi eos error incidunt, iusto quae quo reiciendis? Ab deleniti dignissimos ducimus est eveniet explicabo hic magni maiores minus molestiae. Beatae cum deleniti deserunt earum eos error esse fuga fugit harum itaque minus neque numquam praesentium quas quibusdam quod sed tempora, tenetur ut vitae! Amet delectus deleniti distinctio, eum eveniet explicabo hic iure magnam non numquam quam quos ullam voluptates. Alias commodi error esse laboriosam libero molestias unde. Corporis doloremque, eius error, eveniet excepturi explicabo facere fuga iste nemo nostrum quisquam ratione tempora voluptates! A aliquid, deserunt distinctio expedita facere ipsum magnam, minima minus nesciunt officiis possimus, quod temporibus totam! Accusamus adipisci alias aperiam assumenda cumque deleniti dolorem doloribus dolorum enim et ex, exercitationem expedita facilis fugiat fugit hic incidunt ipsa iure laudantium maiores mollitia nam officiis, perferendis perspiciatis placeat quasi quidem, saepe sapiente velit voluptates? Accusamus adipisci alias aliquam amet aperiam commodi est et exercitationem harum hic impedit, incidunt ipsa labore laudantium, minima, officia officiis perferendis perspiciatis porro quaerat qui quia rem repellendus similique soluta totam voluptatibus? Amet atque debitis doloremque harum omnis ullam unde! Accusamus adipisci aliquam beatae consequuntur dicta doloremque earum excepturi explicabo inventore ipsa ipsum itaque modi molestiae natus nihil nisi nobis nulla perspiciatis quae quasi quia quibusdam quis quod quos, ratione recusandae rem repellat repellendus saepe, sapiente sequi sit soluta tempora totam unde vel voluptate! Aperiam atque et explicabo inventore ipsam nihil quos sed suscipit temporibus, voluptatum! Accusamus ad, aliquid architecto aspernatur consequatur delectus deleniti deserunt dicta doloribus dolorum eius eveniet ex expedita id impedit ipsa iste itaque laborum molestiae molestias nam necessitatibus nulla odio officia officiis omnis perspiciatis placeat provident quae quam quas quo rem totam unde velit voluptas voluptatem? Accusantium commodi corporis cupiditate doloremque dolorum enim est eveniet excepturi expedita illo ipsum magnam nemo nisi non odio odit, officia optio placeat quae quis rem repellat sapiente similique tempora tenetur? Atque dolores esse eveniet id laboriosam maxime nesciunt nobis optio recusandae rem tempora, tempore unde vel veniam voluptates? Consectetur consequatur cumque doloremque esse, exercitationem fugiat fugit illo incidunt possimus praesentium quos rerum sunt ut. A accusamus adipisci alias aliquid atque beatae consequatur consequuntur dignissimos ea facere fuga, fugiat inventore libero molestiae nam non obcaecati odit omnis perferendis rem suscipit tempora totam ullam. Blanditiis exercitationem hic iusto labore laborum magnam, nam nihil quaerat rerum sed temporibus unde voluptas! Consectetur, deserunt tenetur.
+    </div>
+
+    <div id="popup1" class="modal modal_size_big">
+        <h2>Привет, я попап</h2>
+        <p>
+            <button class="btn btn-secondary" data-modal-continue="1" data-modal-caller="popup3" data-modal-closer="popup1">
+                Открыть ещё один попап
+            </button>
+        </p>
+        <p>
+            <button class="btn btn-primary my-1" data-modal-continue="1" data-modal-alert="Эгегей! Это какое-то сообщение!" data-modal-closer="popup1">
+                Показать сообщение
+            </button>
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi debitis dolor eligendi eveniet, ex explicabo harum, laboriosam magnam minima nam odio, quia vitae. Quia, voluptate?</p>
+        <p>Accusantium debitis dolores iusto officia optio rem vitae. Ad aliquid culpa deleniti dignissimos eligendi et expedita, fugit harum ipsa, iure libero nihil non quaerat quas, qui quis quisquam soluta sunt tempore voluptatem.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab consequatur ea facere illo ipsa? Accusamus aspernatur atque cumque expedita fugiat, ipsum itaque magnam modi nesciunt nostrum numquam perferendis perspiciatis porro praesentium quasi quidem quisquam quod reiciendis repellat soluta sunt tempora tempore unde ut, vel veniam vero! Accusamus ad aliquam architecto assumenda at blanditiis cum deserunt doloribus ea eius eveniet hic impedit incidunt libero magnam molestias natus, neque odio quaerat quidem rem reprehenderit repudiandae tenetur, ut vel velit voluptas voluptate. Ab commodi cumque cupiditate, eaque eum, eveniet incidunt magnam minus officiis quia, repudiandae sunt velit voluptates! Aliquid dolorum laboriosam nam perferendis vero. Commodi hic illum necessitatibus nemo praesentium. Accusamus dolorum earum ex exercitationem maxime necessitatibus quos repellendus sapiente! Consectetur culpa ea eveniet explicabo, facilis, ipsam iste necessitatibus neque nobis quis sapiente unde voluptatem. Ab ad amet aspernatur, consectetur culpa enim molestias mollitia, neque nihil numquam odio quaerat rem repudiandae. Architecto asperiores cupiditate debitis doloribus eligendi error excepturi expedita facere, fugit itaque laudantium magni mollitia nemo, nisi odio officia placeat quibusdam quos repellat reprehenderit similique sunt ut vitae voluptates voluptatum. Dolores et laborum quam qui quos saepe sunt. Amet enim id repellat? Ab ad architecto at atque culpa cumque debitis delectus dicta hic laborum laudantium maiores necessitatibus nulla praesentium quo quod, reiciendis rerum sed sint soluta, temporibus vel voluptatem voluptatibus? Adipisci autem debitis illo, laborum laudantium libero recusandae similique tempora veniam. Adipisci consectetur in inventore natus pariatur, quidem quo totam unde! Dignissimos dolore eveniet id laboriosam quidem, suscipit! Adipisci cumque in, ipsa ipsum iste minima natus obcaecati, quasi quibusdam recusandae, saepe sint temporibus? Beatae commodi deleniti ea est eum excepturi fugit labore laborum magni maxime minus, nam pariatur quaerat, ratione recusandae reiciendis repudiandae sint sunt suscipit velit! Accusantium blanditiis cum dolor dolores ducimus eius iste minima molestias possimus qui? Aspernatur atque consectetur cumque dolores explicabo fugiat fugit obcaecati possimus, reiciendis saepe, sit tenetur voluptatem. Animi at consectetur consequuntur doloribus eos fuga illum itaque nemo non, nulla quisquam sunt vel. Ab adipisci architecto at dignissimos excepturi illo ipsa laboriosam nulla tenetur veritatis. Aliquam amet, consequatur deserunt dicta earum fugiat id ipsa molestias repudiandae rerum? Enim, odio, provident! Ad adipisci animi asperiores aut blanditiis cum cumque cupiditate dolore error excepturi facere fugiat itaque, libero nam natus odio officiis, placeat quis quos, reiciendis repudiandae saepe totam? Ab accusantium aliquam aspernatur at, consequuntur, corporis deleniti dignissimos doloribus eum ex facilis fuga fugiat maxime modi molestias nam nulla quisquam recusandae repudiandae rerum sapiente totam unde vel! Accusantium cumque dolorum esse harum inventore, non officia, omnis perferendis perspiciatis, praesentium provident quibusdam repudiandae tempore velit veritatis voluptas voluptate! Accusamus ad aliquid animi atque beatae, consectetur corporis dolores dolorum expedita, fugiat harum illum ipsum molestiae molestias mollitia nihil nulla odit officiis, optio praesentium quisquam repudiandae saepe sit soluta ut. Amet doloremque ipsam porro sint sit? Consequuntur cum dolore dolorum ducimus laborum nemo non quis ratione sapiente? Accusantium aliquid deserunt dignissimos doloremque ducimus eligendi error facere fugit hic libero, magnam molestias nam nisi nulla odio omnis qui quos veniam voluptate voluptatibus.</p>
+    </div>
+
+    <div id="popup3" class="modal">
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque aut autem, commodi debitis dicta dignissimos
+            distinctio ea eaque eius enim esse est eum eveniet illo, illum incidunt ipsam iste labore maiores mollitia nam
+            neque nesciunt non nostrum optio quasi quidem quo quod quos sed tempora totam ullam voluptatem voluptatibus!</div>
+    </div>
+{% endblock %}

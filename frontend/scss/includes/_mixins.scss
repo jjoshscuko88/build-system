@@ -1,0 +1,25 @@
+%fontellify {
+    display: inline-block;
+    width: 1em;
+    line-height: 1em;
+    font-family: fontello;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-align: center;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin pseudo($top: 0, $right: auto, $bottom: auto, $left: 0) {
+    content: '';
+    display: block;
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}

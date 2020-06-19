@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Документация</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="docs/style.css">
+  <script src="docs/vpopape-0.0.4.min.js"></script>
+  <script src="docs/script.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div class="page container">
+    <h1 class="display-3">vpopape</h1>
+    <p class="lead">Помощь в создании и управлении попапами. От тултипов до модалок.</p>
+    <div class="group">
+      <h2>Демо</h2>
+      <ul>
+        <li><a href="https://vahrammer.github.io/vpopape/demo/selects/index.html">Стилизованные селекты</a>;</li>
+        <li><a href="https://vahrammer.github.io/vpopape/demo/slider/index.html">Простой слайдер</a>;</li>
+        <li><a href="https://vahrammer.github.io/vpopape/demo/modals/index.html">Многоуровневые модальные окна</a>;</li>
+        <li><a href="https://vahrammer.github.io/vpopape/demo/cut/index.html">Скрытие под кат (как на этой странице)</a>;</li>
+      </ul>
+    </div>
+    <div class="group">
+      <h2>Описание</h2>
+      <h3><button class="cut-button">Создание</button></h3>
+      <div class="cut cut_hiding">
+        <div class="cut__inner">
+          <p>При создании экземпляра определение его начального состояния (скрыт/показан) зависит от опции <mark>hidingClassname</mark>.</p>
+          <dl>
+            <dt>Опция <mark>hidingClassname</mark> не задана:</dt>
+            <dd>Если у привязанного элемента <code>display = none</code> - состояние «скрыт».</dd>
+          </dl>
+          <dl>
+            <dt>Опция <mark>hidingClassname</mark> задана:</dt>
+            <dd>Если на привязанном элементе висит класс, указанный в опции <mark>hidingClassname</mark> - состояние «скрыт».</dd>
+          </dl>
+          <h4>Небольшой пример</h4>
+<pre><code class="javascript">// Опции передаются объектом.
+var vpopape = new Vpopape({
+  popup: document.getElementById('some-id')
+});
+
+// Также можно передать этот элемент в опции callers.
+// Контекст привязан к методу showPopup().
+var caller = document.getElementById('some-button');
+document.addEventListener(caller, vpopape.showPopup);
+
+// Вместо подписки на событие, можно использовать одноименный колбэк.
+vpopape.on('beforeShow', function() {
+  console.log('Я сработаю перед началом показа элемента some-id');
+});</code></pre>
+        </div>
+      </div>
+      <h3><button class="cut-button">Схема работы</button></h3>
+      <div class="cut cut_hiding">
+        <div class="cut__inner">
+          <h4>Показ</h4>
+          <ol>
+            <li><code>display: none -> display: block</code> (по умолчанию, но можно использовать CSS-классы);</li>
+            <li>Повесить на блок «активный класс», описывающий переходы к активному состоянию;</li>
+            <li>Ждём завершения анимации (если установлена опция <mark>animationTime</mark>).</li>
+          </ol>
+          <h4>Скрытие</h4>
+          <ol>
+            <li>Убираем «активный класс»;</li>
+            <li>Ждём завершение анимации (если установлена опция <mark>animationTime</mark>);</li>
+            <li><code>display: block -> display: none</code> (по умолчанию, но можно использовать CSS-классы).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="group">
+      <h2>Опции и методы</h2>
+      <h3 id="options"><button class="cut-button">Опции</button></h3>
+      <div class="cut cut_hiding">
+        <div class="cut__inner">
+          <ul>
+            <li>Задаются при создании экземпляра или меняются с помощью метода <code>setOption()</code>;</li>
+            <li>Типы не проверяются, передавайте опции, пожалуйста, внимательно;</li>
+            <li>Обязательный параметр, который нужно передавать при создании, только один - <mark>popup</mark>.</li>
+          </ul>
+          <div class="table-wrapper">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Опция</th><th>Тип</th><th>По умолчанию</th><th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>popup</th><td>HTMLElement</td><td>-</td><td>DOM-элемент, для которого нужно управлять состоянием «показан/скрыт». Далее буду называть его «привязанный элемент».</td>
+                </tr><tr>
+                  <th>animationTime</th><td>Number</td><td>0</td><td>Длительность анимации процесса показа/скрытия в милисекундах.</td>
+                </tr><tr>
+                  <th>callers</th><td>HTMLElement</td><td>null</td><td>DOM-элемент(ы), по клику на которые, будет показан привязанный элемент.<br>Можно передать, как один DOM-элемент, так и их массив или коллекцию (в том числе и jQuery).</td>
+                </tr><tr>
+                  <th>closers</th><td>HTMLElement</td><td>null</td><td>DOM-элемент(ы), по клику на которые, будет скрыт привязанный элемент.<br>Можно передать, как один DOM-элемент, так и их массив или коллекцию (в том числе и jQuery).</td>
+                </tr><tr>
+                  <th>dontHideOnOutsideClick</th><td>Boolean</td><td>false</td><td>Не скрывать привязанный элемент по клику вне его.</td>
+                </tr><tr>
+                  <th>hideOnEsc</th><td>Boolean</td><td>false</td><td>Скрывать привязанный элемент по нажатию на <kbd>Escape</kbd>.</td>
+                </tr><tr>
+                  <th>hideOnEscPriority</th><td>Number</td><td>0</td><td>Задаёт порядок скрытия по нажатию на клавишу <kbd>Escape</kbd> для опции <mark>hideOnEsc</mark>.<br>Чем выше значение опции у экземпляра, тем раньше других его привязанный элемент скроется.<br>Порядок скрытия элементов с одинаковыми значениями этой опции у экземпляров такой: открылся последним, скрылся первым.</td>
+                </tr><tr>
+                  <th>hideOnScroll</th><td>Boolean</td><td>false</td><td>Скрывать привязанный элемент во время скролла страницы.</td>
+                </tr><tr>
+                  <th>classname</th><td>String</td><td>'vpopape'</td><td>CSS-класс, который будет добавлен привязанному элементу при создании экземпляра.<br>Можно передать пустую строку, чтобы класс не добавлялся.<br>Можно установить умолчание для этой опции (для всех новых экземпляров) с помощью статического метода <code>Vpopape.setOptionDefault('classname', 'default-classname')</code>.</td>
+                </tr><tr>
+                  <th>activeClassname</th><td>String</td><td>'vpopape_active'</td><td>«Активный» CSS-класс. Нужен для описания переходов к активному состоянию с помощью <mark>transition</mark> (см. примеры).<br>Можно установить умолчание для этой опции (для всех новых экземпляров) с помощью статического метода <code>Vpopape.setOptionDefault('activeClassname', 'default-active-classname')</code>.</td>
+                </tr><tr>
+                  <th>hidingClassname</th><td>String</td><td>false</td><td>Если установлен, то метод <code>hidePopup()</code> вместо <mark>display: none</mark> привязанному элементу добавит этот CSS-класс. И наоборот, метод <code>showPopup()</code> вместо <mark>display: block</mark> уберёт этот CSS-класс.<br>Можно установить умолчание для этой опции (для всех новых экземпляров) с помощью статического метода <code>Vpopape.setOptionDefault('hidingClassname', 'default-hiding-classname')</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <h3 id="callbacks"><button class="cut-button">Колбэки</button></h3>
+      <div class="cut cut_hiding">
+        <div class="cut__inner">
+          <p>Колбэки передаются конструктору вместе с опциями. После создания их можно менять методом <code>setOption()</code>.</p>
+          <p>Сразу после колбэков срабатывают одноимённые события, на которые можно подписаться с помощью метода <code>on()</code>.</p>
+          <div class="table-wrapper">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Колбэк</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>beforeShow</th><td>Вызывается в самом начале метода <code>showPopup()</code>.<br>Внутри колбэка можно отменить работу этого метода, возвратив <mark>false</mark>.<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr><tr>
+                  <th>afterBeforeShow</th><td>Вызывается в процессе работы метода <code>showPopup()</code>, сразу после применения <code>display: block</code> (или снятия соответствующего CSS-класса, в случае опции <mark>hidingClassname</mark>), но до начала таймера <mark>animationTime</mark> (до начала анимации).<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr><tr>
+                  <th>afterShow</th><td>Вызывается, как только отработал метод <code>showPopup()</code>. На этом этапе метод <code>isShown()</code> всё ещё возвращает <mark>false</mark>, а метод <code>isInProgress()</code> - <mark>true</mark>.<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr><tr>
+                  <th>beforeHide</th><td>Вызывается перед запуском метода <code>hidePopup()</code>.<br>Внутри колбэка можно отменить работу этого метода, возвратив <mark>false</mark>.<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr><tr>
+                  <th>beforeAfterHide</th><td>Вызывается в процессе работы метода <code>hidePopup()</code>, после отработки таймера <mark>animationTime</mark> (в конце анимации), перед применением <code>display: none</code> (или установки соответствующего CSS-класса, в случае опции <mark>hidingClassname</mark>).<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr><tr>
+                  <th>afterHide</th><td>Вызывается, как только отработал метод <code>hidePopup()</code>.<br>На этом этапе методы <code>isShown()</code> и <code>isInProgress()</code> всё ещё возвращают <mark>true</mark>.<br>Контекст - экземпляр, у которого вызван метод.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <h3 id="methods"><button class="cut-button">Методы</button></h3>
+      <div class="cut cut_hiding">
+        <div class="cut__inner">
+          <h4 class="pt-2 pb-3">Статические методы</h4>
+          <h5 class="text-monospace">Vpopape.getOptionDefault(key)</h5>
+          <p><strong class="text-monospace">key</strong> (String) - Имя опции;</p>
+          <p>Возвращает значение опции по умолчанию для всех новых экземпляров. Пока поддерживаются только опции <mark>classname</mark>, <mark>activeClassname</mark> и <mark>hidingClassname</mark>.</p>
+          <h5 class="text-monospace">Vpoppape.setOptionDefault(key, value)</h5>
+          <p>
+            <strong class="text-monospace">key</strong> (String) - имя опции;<br>
+            <strong class="text-monospace">value</strong> - значение опции;
+          </p>
+          <p>Устанавливает значение опции по умолчанию для всех новых экземпляров. Пока поддерживаются только опции <mark>classname</mark>, <mark>activeClassname</mark> и <mark>hidingClassname</mark>.</p>
+          <h5 class="text-monospace">Vpopape.getPopups()</h5>
+          <p>Возвращает массив всех существующих экземпляров.</p>
+          <h5 class="text-monospace">Vpopape.getShown()</h5>
+          <p>Возвращает массив всех нескрытых экземпляров.</p>
+          <h5 class="text-monospace">Vpopape.getHidden()</h5>
+          <p>Возвращает массив всех скрытых экземпляров.</p>
+          <h4 class="pt-2 pb-3">Методы</h4>
+          <h5 class="text-monospace">Vpopape.prototype.showPopup()</h5>
+          <p>Показать привязанный элемент. Метод будет проигнорирован, если элемент и так нескрыт или если происходит ранее вызванный процесс показа/скрытия.</p>
+          <h5 class="text-monospace">Vpopape.prototype.hidePopup()</h5>
+          <p>Скрыть привязанный элемент. Метод будет проигнорирован, если элемент и так скрыт или если происходит ранее вызванный процесс показа/скрытия.</p>
+          <h5 class="text-monospace">Vpopape.prototype.isInProgress()</h5>
+          <p>Возвратит <mark>true</mark>, если происходит процесс показа/скрытия привязанного элемента.</p>
+          <h5 class="text-monospace">Vpopape.prototype.isShown()</h5>
+          <p>Возвратит <mark>true</mark>, если попап нескрыт.</p>
+          <h5 class="text-monospace">Vpopape.prototype.getOption(key)</h5>
+          <p><strong class="text-monospace">key</strong> (String) - имя опции;</p>
+          <p>Возвращает значение опции.</p>
+          <h5 class="text-monospace">Vpopape.prototype.setOption(key, value)</h5>
+          <p>
+            <strong class="text-monospace">key</strong> (String) - имя опции;<br>
+            <strong class="text-monospace">value</strong> - значение опции;
+          </p>
+          <p>Устанавливает значение для опции. В экземпляре также можно хранить любые пользовательские значения.</p>
+          <h5 class="text-monospace">Vpopape.prototype.on(eventName, handler)</h5>
+          <p>
+            <strong class="text-monospace">eventName</strong> (String) - имя события;<br>
+            <strong class="text-monospace">handler</strong> (Function) - обработчик события;
+          </p>
+          <p>Регистрирует обработик <mark>handler</mark> на событие <mark>eventName</mark>. Методы <code>showPopup()</code> и <code>hidePopup()</code> помимо колбэков генерируют одноимённые события (события срабатывают сразу после колбэков).<br>Контекст внутри обработчика - экземпляр, который сгенерировал событие.</p>
+          <h5 class="text-monospace">Vpopape.prototype.off(eventName, handler)</h5>
+          <p>
+            <strong class="text-monospace">eventName</strong> (String) - имя события;<br>
+            <strong class="text-monospace">handler</strong> (Function) - обработчик события;
+          </p>
+          <p>Удаляет зарегистрированный обработчик <mark>handler</mark> на событие <mark>eventName</mark>.</p>
+          <h5 class="text-monospace">Vpopape.prototype.trigger(eventName)</h5>
+          <p><strong class="text-monospace">eventName</strong> (String) - имя события;</p>
+          <p>Генерирует событие <mark>eventName</mark>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
