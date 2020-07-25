@@ -4,6 +4,9 @@ const imagemin = require('gulp-imagemin');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+
 const SRC = resolve(__dirname, '../frontend/scss');
 const DIST = resolve(__dirname, '../dist/styles');
 
@@ -11,6 +14,7 @@ const DIST = resolve(__dirname, '../dist/styles');
 task('sass', function() {
     return src(resolve(SRC, 'app.scss'))
         .pipe(sass())
+        .pipe(postcss([ autoprefixer() ]))
         .pipe(dest(resolve(DIST)));
 });
 
