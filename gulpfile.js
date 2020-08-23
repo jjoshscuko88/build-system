@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const browserSync = require('browser-sync').create();
-const { parallel, series, task, watch } = require('gulp');
+const { parallel, series, task } = require('gulp');
+const watch = require('gulp-watch');
 const rimraf = require('rimraf');
 
 const assets = require('./tasks/assets');
